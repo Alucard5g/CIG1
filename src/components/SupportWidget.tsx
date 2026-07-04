@@ -27,6 +27,7 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
   const [scheduledSuccessfully, setScheduledSuccessfully] = useState(false);
   
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
   // Initial welcome message setup
   useEffect(() => {
@@ -61,6 +62,10 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
 
   // Auto-scroll chat to bottom
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
