@@ -22,13 +22,27 @@ export default function App() {
       window.history.scrollRestoration = 'manual';
     }
     
-    // Scroll to top immediately
-    window.scrollTo(0, 0);
-    
-    // Double-ensure we scroll to top after layout has settled
-    const timer = setTimeout(() => {
+    const scrollToTop = () => {
       window.scrollTo({ top: 0, behavior: 'instant' as any });
-    }, 100);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    // Scroll immediately
+    scrollToTop();
+    
+    // Multiple intervals/timeouts to override any late-rendering layout shifts or focus steals
+    const timer1 = setTimeout(scrollToTop, 50);
+    const timer2 = setTimeout(scrollToTop, 150);
+    const timer3 = setTimeout(scrollToTop, 300);
+    const timer4 = setTimeout(scrollToTop, 600);
+
+    const handleLoad = () => {
+      scrollToTop();
+      setTimeout(scrollToTop, 100);
+    };
+
+    window.addEventListener('load', handleLoad);
 
     try {
       const stored = localStorage.getItem('cig_ecosystem_cart');
@@ -39,7 +53,13 @@ export default function App() {
       console.error('Error parsing cart from localStorage', e);
     }
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(timer4);
+      window.removeEventListener('load', handleLoad);
+    };
   }, []);
 
   // Save cart to localStorage on changes

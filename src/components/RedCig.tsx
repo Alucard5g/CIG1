@@ -1,12 +1,12 @@
 import React from 'react';
 import { Network, ArrowRightLeft, ShieldCheck, Database } from 'lucide-react';
 
-import sophiaImg from '../assets/images/sophia_holographics_1783112130005.jpg';
-import opcImg from '../assets/images/opc_infrastructure_1783112142211.jpg';
-import ecoImg from '../assets/images/ecochasqui_ia_1783112154336.jpg';
-import mobilityImg from '../assets/images/cig_mobility_1783112166551.jpg';
-import capitalImg from '../assets/images/cig_capital_trading_1783119103848.jpg';
-import coordinatorImg from '../assets/images/cig_core_coordinator_1783119976997.jpg';
+const sophiaImg = '/sophia_holographics_1783112130005.jpg';
+const opcImg = '/opc_infrastructure_1783112142211.jpg';
+const ecoImg = '/ecochasqui_ia_1783112154336.jpg';
+const mobilityImg = '/cig_mobility_1783112166551.jpg';
+const capitalImg = '/cig_capital_trading_1783119103848.jpg';
+const coordinatorImg = '/cig_core_coordinator_1783119976997.jpg';
 
 export default function RedCig() {
   const nodes = [
