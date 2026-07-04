@@ -17,7 +17,19 @@ export default function App() {
 
   // Initialize cart from localStorage on mount and scroll to top
   useEffect(() => {
+    // Disable browser scroll restoration to prevent starting at the bottom on refresh
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    
+    // Scroll to top immediately
     window.scrollTo(0, 0);
+    
+    // Double-ensure we scroll to top after layout has settled
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' as any });
+    }, 100);
+
     try {
       const stored = localStorage.getItem('cig_ecosystem_cart');
       if (stored) {
@@ -26,6 +38,8 @@ export default function App() {
     } catch (e) {
       console.error('Error parsing cart from localStorage', e);
     }
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Save cart to localStorage on changes
