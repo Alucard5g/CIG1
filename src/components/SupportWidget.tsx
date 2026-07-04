@@ -26,7 +26,7 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
   });
   const [scheduledSuccessfully, setScheduledSuccessfully] = useState(false);
   
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Initial welcome message setup
   useEffect(() => {
@@ -61,7 +61,9 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
 
   // Auto-scroll chat to bottom
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isTyping]);
 
   const triggerBotResponse = (userText: string) => {
@@ -225,7 +227,7 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
             </div>
 
             {/* Chat Messages flow area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map((msg) => (
                 <div 
                   key={msg.id}
@@ -285,8 +287,6 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
                   </div>
                 </div>
               )}
-              
-              <div ref={chatEndRef} />
             </div>
 
             {/* Chat quick chips selection to guide user */}

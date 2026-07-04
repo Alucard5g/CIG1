@@ -15,8 +15,9 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedSupportTopic, setSelectedSupportTopic] = useState<string | undefined>(undefined);
 
-  // Initialize cart from localStorage on mount
+  // Initialize cart from localStorage on mount and scroll to top
   useEffect(() => {
+    window.scrollTo(0, 0);
     try {
       const stored = localStorage.getItem('cig_ecosystem_cart');
       if (stored) {
