@@ -1,0 +1,6 @@
+{
+  "name": "CIG Ecosistema",
+  "description": "Página corporativa de aterrizaje y plataforma e-commerce de servicios de inteligencia artificial, eficiencia corporativa y sostenibilidad para Corporación e Innovación CIG.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
