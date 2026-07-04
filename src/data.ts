@@ -1,4 +1,9 @@
 import { Service, BlogPost, Alliance } from './types';
+import sophiaImg from './assets/images/sophia_holographics_1783112130005.jpg';
+import opcImg from './assets/images/opc_infrastructure_1783112142211.jpg';
+import ecoImg from './assets/images/ecochasqui_ia_1783112154336.jpg';
+import mobilityImg from './assets/images/cig_mobility_1783112166551.jpg';
+import capitalImg from './assets/images/cig_capital_trading_1783119103848.jpg';
 
 export const SERVICES: Service[] = [
   {
@@ -17,7 +22,7 @@ export const SERVICES: Service[] = [
     badgeColor: 'cyan',
     iconName: 'Sparkles',
     tags: ['IA', 'Hologramas', 'Automatización', 'Soporte'],
-    imageUrl: '/src/assets/images/sophia_holographics_1783112130005.jpg'
+    imageUrl: sophiaImg
   },
   {
     id: 'opc-infrastructure',
@@ -35,7 +40,7 @@ export const SERVICES: Service[] = [
     badgeColor: 'purple',
     iconName: 'Cpu',
     tags: ['OPC', 'Administración', 'Automatización', 'Fintech'],
-    imageUrl: '/src/assets/images/opc_infrastructure_1783112142211.jpg'
+    imageUrl: opcImg
   },
   {
     id: 'ecochasqui-ia',
@@ -53,7 +58,7 @@ export const SERVICES: Service[] = [
     badgeColor: 'green',
     iconName: 'Leaf',
     tags: ['Ecología', 'Economía Circular', 'IA', 'Sustentabilidad'],
-    imageUrl: '/src/assets/images/ecochasqui_ia_1783112154336.jpg'
+    imageUrl: ecoImg
   },
   {
     id: 'cig-mobility',
@@ -71,7 +76,7 @@ export const SERVICES: Service[] = [
     badgeColor: 'cyan',
     iconName: 'Shield',
     tags: ['Movilidad', 'Seguridad', 'Logística', 'Hardware Inteligente'],
-    imageUrl: '/src/assets/images/cig_mobility_1783112166551.jpg'
+    imageUrl: mobilityImg
   },
   {
     id: 'cig-capital',
@@ -89,7 +94,7 @@ export const SERVICES: Service[] = [
     badgeColor: 'purple',
     iconName: 'TrendingUp',
     tags: ['Finanzas', 'Algoritmos', 'Predicción', 'ESG'],
-    imageUrl: '/src/assets/images/cig_capital_trading_1783119103848.jpg'
+    imageUrl: capitalImg
   }
 ];
 

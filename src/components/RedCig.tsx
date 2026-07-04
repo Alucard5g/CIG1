@@ -1,37 +1,44 @@
 import React from 'react';
 import { Network, ArrowRightLeft, ShieldCheck, Database } from 'lucide-react';
 
+import sophiaImg from '../assets/images/sophia_holographics_1783112130005.jpg';
+import opcImg from '../assets/images/opc_infrastructure_1783112142211.jpg';
+import ecoImg from '../assets/images/ecochasqui_ia_1783112154336.jpg';
+import mobilityImg from '../assets/images/cig_mobility_1783112166551.jpg';
+import capitalImg from '../assets/images/cig_capital_trading_1783119103848.jpg';
+import coordinatorImg from '../assets/images/cig_core_coordinator_1783119976997.jpg';
+
 export default function RedCig() {
   const nodes = [
     { 
       name: 'SophIA Holographics', 
       color: 'text-neon-cyan', 
       border: 'border-neon-cyan/40',
-      imageUrl: '/src/assets/images/sophia_holographics_1783112130005.jpg'
+      imageUrl: sophiaImg
     },
     { 
       name: 'OPC Infrastructure', 
       color: 'text-neon-purple', 
       border: 'border-neon-purple/40',
-      imageUrl: '/src/assets/images/opc_infrastructure_1783112142211.jpg'
+      imageUrl: opcImg
     },
     { 
       name: 'EcoChasqui IA', 
       color: 'text-neon-green', 
       border: 'border-neon-green/40',
-      imageUrl: '/src/assets/images/ecochasqui_ia_1783112154336.jpg'
+      imageUrl: ecoImg
     },
     { 
       name: 'CIG Mobility', 
       color: 'text-neon-cyan', 
       border: 'border-neon-cyan/40',
-      imageUrl: '/src/assets/images/cig_mobility_1783112166551.jpg'
+      imageUrl: mobilityImg
     },
     { 
       name: 'CIG Capital Markets', 
       color: 'text-neon-purple', 
       border: 'border-neon-purple/40',
-      imageUrl: '/src/assets/images/cig_capital_trading_1783119103848.jpg'
+      imageUrl: capitalImg
     }
   ];
 
@@ -99,7 +106,7 @@ export default function RedCig() {
               <div className="relative z-10 p-3 rounded-2xl bg-gradient-to-tr from-slate-950 to-slate-900 border border-neon-cyan/50 shadow-2xl shadow-neon-cyan/25 flex flex-col items-center text-center max-w-[150px] overflow-hidden group">
                 <div className="w-full aspect-square rounded-lg overflow-hidden border border-white/10 mb-2.5 relative">
                   <img 
-                    src="/src/assets/images/cig_core_coordinator_1783119976997.jpg" 
+                    src={coordinatorImg} 
                     alt="CIG Core Coordinator"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     referrerPolicy="no-referrer"
