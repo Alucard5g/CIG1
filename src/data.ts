@@ -1,10 +1,12 @@
 import { Service, BlogPost, Alliance } from './types';
+import customSoftwareImg from './assets/images/custom_software_marketing_1783271167881.jpg';
+import sophiaImg from './assets/images/sophia_holographics_1783112130005.jpg';
+import opcImg from './assets/images/opc_infrastructure_1783112142211.jpg';
+import ecoImg from './assets/images/ecochasqui_ia_1783112154336.jpg';
+import mobilityImg from './assets/images/cig_mobility_1783112166551.jpg';
+import capitalImg from './assets/images/cig_capital_trading_1783119103848.jpg';
+import redGuerraImg from './assets/images/cig_core_coordinator_1783119976997.jpg';
 
-const sophiaImg = '/sophia_holographics_1783112130005.jpg';
-const opcImg = '/opc_infrastructure_1783112142211.jpg';
-const ecoImg = '/ecochasqui_ia_1783112154336.jpg';
-const mobilityImg = '/cig_mobility_1783112166551.jpg';
-const capitalImg = '/cig_capital_trading_1783119103848.jpg';
 
 export const SERVICES: Service[] = [
   {
@@ -18,7 +20,7 @@ export const SERVICES: Service[] = [
       'Integración omnicanal',
       'Análisis de sentimiento activo'
     ],
-    basePrice: 1500,
+    basePrice: 999,
     pricingUnit: 'mensual / licencia base',
     badgeColor: 'cyan',
     iconName: 'Sparkles',
@@ -27,20 +29,20 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'opc-infrastructure',
-    name: 'OPC (One Person Company)',
-    subtitle: 'Eficiencia Extrema para Emprendimientos',
-    description: 'Despliegue de infraestructura empresarial inteligente para automatizar la facturación, inventarios y administración. Permite controlar el 100% de la operación reduciendo costos fijos de nómina a un solo administrador.',
+    name: 'Sistemas OPC & Implementación Guiada',
+    subtitle: 'Eficiencia Extrema e Integración de Negocios',
+    description: 'Despliegue de infraestructura empresarial inteligente "One Person Company" con guía especializada. Automatiza facturación, inventarios y contabilidad, permitiendo controlar el 100% de la operación reduciendo costos fijos.',
     techFeatures: [
-      'ERP automatizado con IA',
-      'Facturación electrónica auto-gestionada',
-      'Control de inventario predictivo',
-      'Dashboard unificado de rentabilidad'
+      'Estructura One Person Company llave en mano',
+      'Acompañamiento y soporte de ingeniería guiada',
+      'ERP automatizado y facturación electrónica',
+      'Control de inventario inteligente y predictivo'
     ],
-    basePrice: 850,
+    basePrice: 999,
     pricingUnit: 'instalación + soporte mensual',
     badgeColor: 'purple',
     iconName: 'Cpu',
-    tags: ['OPC', 'Administración', 'Automatización', 'Fintech'],
+    tags: ['OPC', 'Administración', 'Guía Técnica', 'ERP'],
     imageUrl: opcImg
   },
   {
@@ -54,7 +56,7 @@ export const SERVICES: Service[] = [
       'Tokenización de residuos',
       'Auditorías ambientales automáticas'
     ],
-    basePrice: 1200,
+    basePrice: 999,
     pricingUnit: 'suscripción corporativa',
     badgeColor: 'green',
     iconName: 'Leaf',
@@ -62,9 +64,27 @@ export const SERVICES: Service[] = [
     imageUrl: ecoImg
   },
   {
-    id: 'cig-mobility',
-    name: 'CIG Mobility',
-    subtitle: 'Logística Inteligente y Seguridad Preventiva con IA',
+    id: 'red-guerra',
+    name: 'Red Guerra',
+    subtitle: 'Conectividad y Alianzas Globales',
+    description: 'Conectamos empresas y sus servicios para potenciar las operaciones de nuestros aliados, brindando soluciones íntegras en un solo ECOSISTEMA CIG. Sistemas de interconectividad inteligente y redes de telecomunicación redundantes con seguridad cuántica activa.',
+    techFeatures: [
+      'Redes descentralizadas encriptadas',
+      'Enlaces satelitales autónomos integrados',
+      'Nodos CIG Core de baja latencia',
+      'Alianzas globales de telecomunicación'
+    ],
+    basePrice: 999,
+    pricingUnit: 'por nodo de red',
+    badgeColor: 'cyan',
+    iconName: 'Shield',
+    tags: ['Redes', 'Conectividad', 'Seguridad', 'Satélite'],
+    imageUrl: redGuerraImg
+  },
+  {
+    id: 'guerra-mobility',
+    name: 'Guerra Mobility',
+    subtitle: 'Movilidad y Logística Sostenible',
     description: 'Optimización de flotas con cámaras internas/externas administradas por IA. Detecta somnolencia o embriaguez, y cuenta con una computadora inteligente que toma el control autónomo del vehículo para prevenir accidentes.',
     techFeatures: [
       'Monitoreo biométrico de fatiga',
@@ -72,7 +92,7 @@ export const SERVICES: Service[] = [
       'Toma de control de vehículo automatizada',
       'Optimización de rutas por redes neuronales'
     ],
-    basePrice: 2400,
+    basePrice: 999,
     pricingUnit: 'por unidad de transporte',
     badgeColor: 'cyan',
     iconName: 'Shield',
@@ -80,8 +100,8 @@ export const SERVICES: Service[] = [
     imageUrl: mobilityImg
   },
   {
-    id: 'cig-capital',
-    name: 'CIG Capital Markets',
+    id: 'guerra-capital',
+    name: 'Guerra Capital Markets',
     subtitle: 'Inversión y Finanzas Sostenibles',
     description: 'Gestión estratégica de excedentes de capital corporativo mediante modelos matemáticos y algoritmos de análisis predictivo avanzados en mercados globales.',
     techFeatures: [
@@ -90,12 +110,30 @@ export const SERVICES: Service[] = [
       'Análisis predictivo de volatilidad',
       'Ejecución algorítmica de cobertura'
     ],
-    basePrice: 3500,
+    basePrice: 999,
     pricingUnit: 'administración de excedentes / anual',
     badgeColor: 'purple',
     iconName: 'TrendingUp',
     tags: ['Finanzas', 'Algoritmos', 'Predicción', 'ESG'],
     imageUrl: capitalImg
+  },
+  {
+    id: 'custom-development',
+    name: 'Desarrollo Digital a la Medida',
+    subtitle: 'Páginas Web, Apps y Marketing Inteligente',
+    description: 'Creamos páginas web, aplicaciones móviles (iOS/Android), software a medida y campañas de marketing integrales, todo 100% personalizado según los requerimientos y objetivos específicos de tu organización.',
+    techFeatures: [
+      'Páginas web corporativas y e-commerce',
+      'Aplicaciones móviles nativas e híbridas',
+      'Estrategias de marketing personalizado',
+      'Desarrollo modular escalable y APIs'
+    ],
+    basePrice: 999,
+    pricingUnit: 'por proyecto llave en mano',
+    badgeColor: 'purple',
+    iconName: 'Sparkles',
+    tags: ['Webs', 'Apps', 'Marketing', 'Personalizado'],
+    imageUrl: customSoftwareImg
   }
 ];
 

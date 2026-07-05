@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, Cpu, Leaf, Shield, TrendingUp, Check, Plus, ShoppingCart, Info, Settings 
+  Sparkles, Cpu, Leaf, Shield, TrendingUp, Check, Plus, ShoppingCart, Info, Settings, Globe 
 } from 'lucide-react';
 import { Service } from '../types';
 import { SERVICES } from '../data';
@@ -15,8 +15,10 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
   const [sophiaChannels, setSophiaChannels] = useState<'base' | 'multichannel' | 'omnichannel'>('base');
   const [opcEmployees, setOpcEmployees] = useState<number>(1);
   const [ecoTons, setEcoTons] = useState<number>(10);
+  const [guerraNodes, setGuerraNodes] = useState<number>(1);
   const [mobilityVehicles, setMobilityVehicles] = useState<number>(1);
   const [capitalExcedent, setCapitalExcedent] = useState<number>(50000);
+  const [customProjectTier, setCustomProjectTier] = useState<'web' | 'full-app' | 'marketing'>('web');
 
   // Added notification states
   const [addedNotification, setAddedNotification] = useState<string | null>(null);
@@ -29,6 +31,7 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
       case 'Leaf': return <Leaf {...props} />;
       case 'Shield': return <Shield {...props} />;
       case 'TrendingUp': return <TrendingUp {...props} />;
+      case 'Globe': return <Globe {...props} />;
       default: return <Cpu {...props} />;
     }
   };
@@ -44,29 +47,7 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
 
   // Dynamic price calculators based on interactive configuration variables
   const calculateServicePrice = (serviceId: string) => {
-    switch (serviceId) {
-      case 'sophia-holographics':
-        if (sophiaChannels === 'base') return 1500;
-        if (sophiaChannels === 'multichannel') return 2200;
-        return 3500;
-      case 'opc-infrastructure':
-        // Base is 850, add 150 per extra administrator dashboard/sucursal
-        return 850 + (opcEmployees - 1) * 150;
-      case 'ecochasqui-ia':
-        // Base is 1200, add 50 per ton processed
-        return 1200 + Math.max(0, ecoTons - 10) * 45;
-      case 'cig-mobility':
-        // Base is 2400 per unit, with bulk discounts
-        const unitPrice = mobilityVehicles > 10 ? 1900 : mobilityVehicles > 3 ? 2100 : 2400;
-        return unitPrice * mobilityVehicles;
-      case 'cig-capital':
-        // Base of 3500, or a flat percentage equivalent for higher numbers
-        if (capitalExcedent < 20000) return 2000;
-        if (capitalExcedent < 100000) return 3500;
-        return 5000;
-      default:
-        return 1000;
-    }
+    return 999;
   };
 
   // Compile custom requirements note automatically based on user choices
@@ -75,13 +56,20 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
       case 'sophia-holographics':
         return `Configuración: Plan de canales [${sophiaChannels.toUpperCase()}]. Soporte automatizado holográfico 24/7.`;
       case 'opc-infrastructure':
-        return `Configuración: ${opcEmployees} unidad(es) de administración / sucursales operativas independientes.`;
+        return `Configuración: Sistemas OPC. ${opcEmployees} unidad(es) de administración / sucursales con guía técnica especializada.`;
       case 'ecochasqui-ia':
-        return `Configuración: Estimación de procesamiento de ${ecoTons} Toneladas/mes de residuos clasificados.`;
-      case 'cig-mobility':
+        return `Configuración: Estimación de procesamiento de ${ecoTons} Toneladas/mes de residuos clasificados. Alianza Guerreros de Luz.`;
+      case 'red-guerra':
+        return `Configuración: Red de telecomunicaciones robusta con ${guerraNodes} nodo(s) CIG Core de alta disponibilidad enlazados.`;
+      case 'guerra-mobility':
         return `Configuración: Monitoreo y piloto preventivo IA activo para una flota de ${mobilityVehicles} vehículo(s).`;
-      case 'cig-capital':
+      case 'guerra-capital':
         return `Configuración: Plan de excedentes corporativos de $${capitalExcedent.toLocaleString('es-EC')} USD de capital estratégico.`;
+      case 'custom-development':
+        return `Configuración: Desarrollo personalizado de tipo [${
+          customProjectTier === 'web' ? 'PÁGINA WEB / E-COMMERCE' : 
+          customProjectTier === 'marketing' ? 'CAMPANAS MARKETING INTEGRA' : 'APP MÓVIL (iOS/Android) o WEB APP COMPLEX'
+        }].`;
       default:
         return 'Configuración estándar del ecosistema tecnológico.';
     }
@@ -105,6 +93,19 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
     }, 3000);
   };
 
+  const getPricingUnitLabel = (serviceId: string) => {
+    switch (serviceId) {
+      case 'sophia-holographics': return 'USD / licencia base';
+      case 'opc-infrastructure': return 'USD / implementación guiada';
+      case 'ecochasqui-ia': return 'USD / mes aprox';
+      case 'red-guerra': return 'USD / nodo de red';
+      case 'guerra-mobility': return 'USD / flota total';
+      case 'guerra-capital': return 'USD / anual';
+      case 'custom-development': return 'USD / cotización de proyecto';
+      default: return 'USD';
+    }
+  };
+
   return (
     <section id="servicios" className="py-24 bg-transparent relative">
       {/* Background ambient accents */}
@@ -126,7 +127,7 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
           </p>
           <div className="inline-flex items-center gap-2 bg-slate-950/80 border border-amber-500/20 px-4 py-2.5 rounded-xl text-xs text-amber-400/90 font-sans max-w-2xl mx-auto shadow-inner">
             <span className="flex-shrink-0 w-2 h-2 rounded-full bg-amber-500 animate-pulse animate-duration-1000"></span>
-            <span><strong>Nota Importante:</strong> Todos los precios de los servicios están sujetos a auditoría de negocio y cotización presencial de nuestros agentes.</span>
+            <span><strong>Nota Importante:</strong> Todos los precios de los servicios se muestran con una estimación inicial de $999 USD. El valor final de cada servicio se cotiza previa auditoría detallada al cliente por parte de nuestros agentes.</span>
           </div>
         </div>
 
@@ -190,7 +191,7 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
 
                   {/* Service Image */}
                   {service.imageUrl && (
-                    <div className="relative w-full h-44 rounded-xl overflow-hidden mb-6 border border-white/10 group-hover:border-neon-cyan/30 transition-all duration-300 shadow-inner">
+                    <div className="relative w-full h-44 rounded-xl overflow-hidden mb-6 border border-white/10 group-hover:border-neon-cyan/30 transition-all duration-300 shadow-inner bg-slate-950">
                       <img 
                         src={service.imageUrl} 
                         alt={service.name} 
@@ -250,7 +251,7 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
 
                     {service.id === 'opc-infrastructure' && (
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-400 font-sans">Sucursales/administraciones:</span>
+                        <span className="text-xs text-gray-400 font-sans">Módulos/Administraciones:</span>
                         <div className="flex items-center gap-3">
                           <button
                             onClick={() => setOpcEmployees(Math.max(1, opcEmployees - 1))}
@@ -287,7 +288,28 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
                       </div>
                     )}
 
-                    {service.id === 'cig-mobility' && (
+                    {service.id === 'red-guerra' && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-400">Nodos CIG Core a interconectar:</span>
+                        <div className="flex items-center gap-3">
+                          <button
+                            onClick={() => setGuerraNodes(Math.max(1, guerraNodes - 1))}
+                            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white text-lg font-bold transition-all"
+                          >
+                            -
+                          </button>
+                          <span className="font-mono font-bold text-white text-sm w-8 text-center">{guerraNodes}</span>
+                          <button
+                            onClick={() => setGuerraNodes(guerraNodes + 1)}
+                            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white text-lg font-bold transition-all"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {service.id === 'guerra-mobility' && (
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-400">Flota vehicular a equipar:</span>
                         <div className="flex items-center gap-3">
@@ -308,7 +330,7 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
                       </div>
                     )}
 
-                    {service.id === 'cig-capital' && (
+                    {service.id === 'guerra-capital' && (
                       <div className="space-y-2">
                         <div className="flex justify-between text-xs text-gray-400">
                           <span>Monto de Excedentes a Gestionar:</span>
@@ -331,6 +353,36 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
                         </div>
                       </div>
                     )}
+
+                    {service.id === 'custom-development' && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-xs text-gray-400">
+                          <span>Tipo de Proyecto Requerido:</span>
+                          <span className="font-mono font-bold text-neon-purple uppercase">
+                            {customProjectTier === 'web' ? 'Web/E-comm' : customProjectTier === 'marketing' ? 'Marketing' : 'App Complex'}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                          {[
+                            { key: 'web', label: 'Web/Store' },
+                            { key: 'full-app', label: 'App Móvil' },
+                            { key: 'marketing', label: 'Marketing' }
+                          ].map((tier) => (
+                            <button
+                              key={tier.key}
+                              onClick={() => setCustomProjectTier(tier.key as any)}
+                              className={`px-1.5 py-2 rounded-lg text-[10.5px] font-mono transition-all border ${
+                                customProjectTier === tier.key 
+                                  ? 'bg-neon-purple/10 border-neon-purple text-neon-purple' 
+                                  : 'bg-transparent border-white/5 text-gray-400 hover:border-white/10 hover:text-white'
+                              }`}
+                            >
+                              {tier.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -339,14 +391,14 @@ export default function ServicesGrid({ onAddToCart, onOpenSupportWithTopic }: Se
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                     <div>
                       <div className="text-[10px] text-gray-400 font-mono tracking-widest uppercase">
-                        PRECIO BASE ESTIMADO
+                        PRECIO ESTIMADO REFERENCIAL
                       </div>
                       <div className="flex items-baseline gap-1.5 mt-0.5">
                         <span className="text-2xl font-mono font-bold text-white text-glow-cyan">
                           ${currentPrice.toLocaleString('es-EC')}
                         </span>
-                        <span className="text-xs text-gray-400 font-sans">
-                          USD / {service.id === 'cig-mobility' ? 'vehículo' : service.id === 'ecochasqui-ia' ? 'mes aprox' : 'despliegue'}
+                        <span className="text-[10px] text-gray-400 font-sans">
+                          {getPricingUnitLabel(service.id)}
                         </span>
                       </div>
                     </div>

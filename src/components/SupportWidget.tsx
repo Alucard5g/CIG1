@@ -111,15 +111,15 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
           { label: '🚀 Agendar Consultoría', payload: 'schedule_meeting', type: 'schedule' }
         ];
       } else if (normalized.includes('mobility') || normalized.includes('flota') || normalized.includes('vehículo') || normalized.includes('seguridad')) {
-        replyText = 'CIG Mobility salva vidas mediante computadoras predictivas de abordo. Nuestras cámaras internas evalúan patrones de fatiga, somnolencia, desatención ocular o rastro de embriaguez del conductor, alertando de inmediato a la central corporativa. Si el riesgo es crítico, la IA toma control parcial del vehículo de manera autónoma para orillarse de forma segura.';
+        replyText = 'Guerra Mobility salva vidas mediante computadoras predictivas de abordo. Nuestras cámaras internas evalúan patrones de fatiga, somnolencia, desatención ocular o rastro de embriaguez del conductor, alertando de inmediato a la central corporativa. Si el riesgo es crítico, la IA toma control parcial del vehículo de manera autónoma para orillarse de forma segura.';
         replyActions = [
-          { label: '🛒 Añadir CIG Mobility', payload: 'add_mobility_direct', type: 'add_to_cart', targetId: 'cig-mobility' },
+          { label: '🛒 Añadir Guerra Mobility', payload: 'add_mobility_direct', type: 'add_to_cart', targetId: 'guerra-mobility' },
           { label: '🚀 Agendar Demo', payload: 'schedule_meeting', type: 'schedule' }
         ];
       } else if (normalized.includes('capital') || normalized.includes('inversión') || normalized.includes('excedentes')) {
-        replyText = 'CIG Capital Markets optimiza la tesorería corporativa. Analizamos tus saldos pasivos y los posicionamos estratégicamente en instrumentos bursátiles internacionales de alta liquidez y rendimiento mediante algoritmos predictivos cuantitativos alineados con objetivos de sostenibilidad (ESG).';
+        replyText = 'Guerra Capital Markets optimiza la tesorería corporativa. Analizamos tus saldos pasivos y los posicionamos estratégicamente en instrumentos bursátiles internacionales de alta liquidez y rendimiento mediante algoritmos predictivos cuantitativos alineados con objetivos de sostenibilidad (ESG).';
         replyActions = [
-          { label: '🛒 Añadir CIG Capital', payload: 'add_capital_direct', type: 'add_to_cart', targetId: 'cig-capital' },
+          { label: '🛒 Añadir Guerra Capital', payload: 'add_capital_direct', type: 'add_to_cart', targetId: 'guerra-capital' },
           { label: '🚀 Agendar Consultoría', payload: 'schedule_meeting', type: 'schedule' }
         ];
       } else {
@@ -446,11 +446,13 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
                       className="w-full bg-slate-950 border border-white/10 focus:border-neon-purple/40 rounded-lg p-2.5 text-xs text-white outline-none font-sans"
                     >
                       <option value="SophIA Holographics (Asistentes IA)">SophIA Holographics (Asistentes IA)</option>
-                      <option value="OPC (Eficiencia Corporativa Extrema)">OPC (Eficiencia Corporativa Extrema)</option>
-                      <option value="EcoChasqui IA (Sustentabilidad)">EcoChasqui IA (Sustentabilidad)</option>
-                      <option value="CIG Mobility (Seguridad Flotas)">CIG Mobility (Seguridad Flotas)</option>
-                      <option value="CIG Capital Markets (Finanzas)">CIG Capital Markets (Finanzas)</option>
-                      <option value="Ecosistema Completo / Red CIG">Ecosistema Completo / Red CIG</option>
+                      <option value="Sistemas OPC & Implementación Guiada">Sistemas OPC &amp; Implementación Guiada</option>
+                      <option value="EcoChasqui IA (Sustentabilidad/Ayuda Social)">EcoChasqui IA (Sustentabilidad/Ayuda Social)</option>
+                      <option value="Red Guerra (Conectividad Global)">Red Guerra (Conectividad Global)</option>
+                      <option value="Guerra Mobility (Logística Sostenible)">Guerra Mobility (Logística Sostenible)</option>
+                      <option value="Guerra Capital Markets (Finanzas ESG)">Guerra Capital Markets (Finanzas ESG)</option>
+                      <option value="Desarrollo Digital a la Medida (Web/Apps/Marketing)">Desarrollo Digital a la Medida (Web/Apps/Marketing)</option>
+                      <option value="Ecosistema Completo / Alianza CIG">Ecosistema Completo / Alianza CIG</option>
                     </select>
                   </div>
 

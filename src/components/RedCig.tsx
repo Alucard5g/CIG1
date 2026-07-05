@@ -1,12 +1,12 @@
 import React from 'react';
 import { Network, ArrowRightLeft, ShieldCheck, Database } from 'lucide-react';
 
-const sophiaImg = '/sophia_holographics_1783112130005.jpg';
-const opcImg = '/opc_infrastructure_1783112142211.jpg';
-const ecoImg = '/ecochasqui_ia_1783112154336.jpg';
-const mobilityImg = '/cig_mobility_1783112166551.jpg';
-const capitalImg = '/cig_capital_trading_1783119103848.jpg';
-const coordinatorImg = '/cig_core_coordinator_1783119976997.jpg';
+import sophiaImg from '../assets/images/sophia_holographics_1783112130005.jpg';
+import opcImg from '../assets/images/opc_infrastructure_1783112142211.jpg';
+import ecoImg from '../assets/images/ecochasqui_ia_1783112154336.jpg';
+import mobilityImg from '../assets/images/cig_mobility_1783112166551.jpg';
+import capitalImg from '../assets/images/cig_capital_trading_1783119103848.jpg';
+import coordinatorImg from '../assets/images/cig_core_coordinator_1783119976997.jpg';
 
 export default function RedCig() {
   const nodes = [
@@ -29,13 +29,13 @@ export default function RedCig() {
       imageUrl: ecoImg
     },
     { 
-      name: 'CIG Mobility', 
+      name: 'Guerra Mobility', 
       color: 'text-neon-cyan', 
       border: 'border-neon-cyan/40',
       imageUrl: mobilityImg
     },
     { 
-      name: 'CIG Capital Markets', 
+      name: 'Guerra Capital Markets', 
       color: 'text-neon-purple', 
       border: 'border-neon-purple/40',
       imageUrl: capitalImg
@@ -64,11 +64,11 @@ export default function RedCig() {
             </div>
  
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight leading-tight">
-              Red <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-blue-400 to-neon-purple text-glow-cyan">CIG</span>
+              Red <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-blue-400 to-neon-purple text-glow-cyan">Guerra / Ecosistema CIG</span>
             </h2>
  
             <p className="font-sans text-gray-300 text-lg leading-relaxed font-light">
-              En Red CIG la empresa coordina alianzas estratégicas de servicios que fortalecen los modelos de negocio realizados por CIG o ya establecidos, generando un portafolio empresarial completo para el cliente en un ecosistema global todo desde CIG.
+              Conectamos empresas y sus servicios para potenciar las operaciones de nuestros aliados, brindando soluciones íntegras en un solo ECOSISTEMA CIG. La red coordina alianzas estratégicas que fortalecen los modelos de negocio realizados por CIG o ya establecidos, generando un portafolio tecnológico unificado y robusto a nivel global.
             </p>
  
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">

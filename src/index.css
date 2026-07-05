@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -14,10 +13,14 @@
 }
 
 @layer base {
-  body {
+  html, body, #root {
     background-color: var(--color-deep-dark);
     color: #f3f4f6;
-    font-family: var(--font-sans);
+    font-family: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  }
+  
+  input, select, textarea, button {
+    font-family: inherit;
   }
 }
 
