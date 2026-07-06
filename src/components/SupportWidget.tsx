@@ -71,7 +71,7 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
     }
   }, [messages, isTyping]);
 
-  const triggerBotResponse = (userText: string) => {
+  const triggerBotResponse = async (userText: string) => {
     // Add user message
     const userMsg: ChatMessage = {
       id: `user-${Date.now()}`,
@@ -83,47 +83,56 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
     setMessages(prev => [...prev, userMsg]);
     setIsTyping(true);
 
-    setTimeout(() => {
-      let replyText = '';
-      let replyActions: any[] = [];
-      const normalized = userText.toLowerCase();
+    try {
+      // Attempt to communicate with the secure server-side Gemini endpoint
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userText }),
+      });
 
-      if (normalized.includes('schedule') || normalized.includes('agendar') || normalized.includes('consultoría') || normalized.includes('cita')) {
-        replyText = 'Excelente decisión. Un consultor experto de CIG analizará tus objetivos corporativos. He activado nuestro planificador cripto-seguro en la interfaz de la derecha para que definas la fecha y hora de tu sesión estratégica.';
+      if (!response.ok) {
+        throw new Error('Server returned non-200 response');
+      }
+
+      const data = await response.json();
+      
+      // Determine context-based actions from either query or bot reply
+      let replyActions: any[] = [];
+      const botTextLower = (data.text || '').toLowerCase();
+      const userTextLower = userText.toLowerCase();
+
+      if (botTextLower.includes('agenda') || botTextLower.includes('calendario') || botTextLower.includes('reunión') || botTextLower.includes('reunion') || userTextLower.includes('agendar') || userTextLower.includes('cita')) {
         setShowScheduler(true);
         replyActions = [{ label: 'Ir al Planificador', payload: 'focus_scheduler', type: 'general' }];
-      } else if (normalized.includes('opc') || normalized.includes('ahorro') || normalized.includes('emprendimiento')) {
-        replyText = 'El modelo OPC (One Person Company) está diseñado para eliminar la burocracia operativa redundante. Automatiza contabilidad, facturación autorizada con el SRI, control biométrico y stock. Reduce tus costos de nómina tradicionales en un 90%, delegando la administración total a una interfaz inteligente de un solo directivo.';
+      } else if (botTextLower.includes('opc') || botTextLower.includes('ahorro') || userTextLower.includes('opc')) {
         replyActions = [
           { label: '🛒 Añadir OPC al Carrito', payload: 'add_opc_direct', type: 'add_to_cart', targetId: 'opc-infrastructure' },
           { label: '🚀 Agendar Demo', payload: 'schedule_meeting', type: 'schedule' }
         ];
-      } else if (normalized.includes('sophia') || normalized.includes('hologram') || normalized.includes('inteligencia artificial')) {
-        replyText = 'SophIA Holographics revoluciona la atención interactiva. Desarrollamos avatares y asistentes tridimensionales/holográficos con modelos LLM propietarios entrenados en el conocimiento de tu marca. Resuelven el 95% de dudas con empatía simulada y derivan prospectos de alto valor de inmediato.';
+      } else if (botTextLower.includes('sophia') || botTextLower.includes('hologram') || userTextLower.includes('sophia')) {
         replyActions = [
           { label: '🛒 Añadir SophIA al Carrito', payload: 'add_sophia_direct', type: 'add_to_cart', targetId: 'sophia-holographics' },
           { label: '🚀 Agendar una Sesión', payload: 'schedule_meeting', type: 'schedule' }
         ];
-      } else if (normalized.includes('eco') || normalized.includes('reciclaje') || normalized.includes('circular') || normalized.includes('chasqui')) {
-        replyText = 'EcoChasqui IA es nuestra plataforma bandera para sustentabilidad industrial. Sincroniza hardware de escaneo óptico mediante visión artificial con un software que clasifica materiales reciclables, cuantifica bonos de CO2, y asocia a tu empresa a la red de beneficios fiscales verdes.';
+      } else if (botTextLower.includes('eco') || botTextLower.includes('chasqui') || userTextLower.includes('eco') || userTextLower.includes('chasqui')) {
         replyActions = [
           { label: '🛒 Añadir EcoChasqui', payload: 'add_eco_direct', type: 'add_to_cart', targetId: 'ecochasqui-ia' },
           { label: '🚀 Agendar Consultoría', payload: 'schedule_meeting', type: 'schedule' }
         ];
-      } else if (normalized.includes('mobility') || normalized.includes('flota') || normalized.includes('vehículo') || normalized.includes('seguridad')) {
-        replyText = 'Guerra Mobility salva vidas mediante computadoras predictivas de abordo. Nuestras cámaras internas evalúan patrones de fatiga, somnolencia, desatención ocular o rastro de embriaguez del conductor, alertando de inmediato a la central corporativa. Si el riesgo es crítico, la IA toma control parcial del vehículo de manera autónoma para orillarse de forma segura.';
+      } else if (botTextLower.includes('mobility') || botTextLower.includes('flota') || userTextLower.includes('mobility')) {
         replyActions = [
           { label: '🛒 Añadir Guerra Mobility', payload: 'add_mobility_direct', type: 'add_to_cart', targetId: 'guerra-mobility' },
           { label: '🚀 Agendar Demo', payload: 'schedule_meeting', type: 'schedule' }
         ];
-      } else if (normalized.includes('capital') || normalized.includes('inversión') || normalized.includes('excedentes')) {
-        replyText = 'Guerra Capital Markets optimiza la tesorería corporativa. Analizamos tus saldos pasivos y los posicionamos estratégicamente en instrumentos bursátiles internacionales de alta liquidez y rendimiento mediante algoritmos predictivos cuantitativos alineados con objetivos de sostenibilidad (ESG).';
+      } else if (botTextLower.includes('capital') || botTextLower.includes('inversión') || userTextLower.includes('capital')) {
         replyActions = [
-          { label: '🛒 Añadir Guerra Capital', payload: 'add_capital_direct', type: 'add_to_cart', targetId: 'guerra-capital' },
+          { label: '🛒 Añadir Guerra Capital', payload: 'add_guerra_capital', type: 'add_to_cart', targetId: 'guerra-capital' },
           { label: '🚀 Agendar Consultoría', payload: 'schedule_meeting', type: 'schedule' }
         ];
       } else {
-        replyText = `Comprendo tu interés en transformar el ecosistema con tecnología segura. He registrado tu inquietud sobre: "${userText}". Nuestro equipo comercial y de I+D profundizará en esto en tu consultoría personalizada. ¿Te gustaría agendar una reunión virtual Meet gratuita para estructurar tu blueprint tecnológico hoy?`;
         replyActions = [
           { label: '🚀 Agendar Reunión Virtual', payload: 'schedule_meeting', type: 'schedule' },
           { label: '📞 Hablar con un Humano', payload: 'direct_whatsapp', type: 'general' }
@@ -132,15 +141,77 @@ export default function SupportWidget({ initialTopic, cartSummaryText }: Support
 
       const botMsg: ChatMessage = {
         id: `bot-${Date.now()}`,
-        text: replyText,
+        text: data.text,
         sender: 'bot',
         timestamp: 'Ahora',
         actions: replyActions
       };
 
       setMessages(prev => [...prev, botMsg]);
+    } catch (apiError) {
+      console.warn('API chat failed. Falling back to offline responses:', apiError);
+      
+      // Resilient offline fallback responses
+      setTimeout(() => {
+        let replyText = '';
+        let replyActions: any[] = [];
+        const normalized = userText.toLowerCase();
+
+        if (normalized.includes('schedule') || normalized.includes('agendar') || normalized.includes('consultoría') || normalized.includes('cita')) {
+          replyText = 'Excelente decisión. Un consultor experto de CIG analizará tus objetivos corporativos. He activado nuestro planificador cripto-seguro en la interfaz de la derecha para que definas la fecha y hora de tu sesión estratégica.';
+          setShowScheduler(true);
+          replyActions = [{ label: 'Ir al Planificador', payload: 'focus_scheduler', type: 'general' }];
+        } else if (normalized.includes('opc') || normalized.includes('ahorro') || normalized.includes('emprendimiento')) {
+          replyText = 'El modelo OPC (One Person Company) está diseñado para eliminar la burocracia operativa redundante. Automatiza contabilidad, facturación autorizada con el SRI, control biométrico y stock. Reduce tus costos de nómina tradicionales en un 90%, delegando la administración total a una interfaz inteligente de un solo directivo.';
+          replyActions = [
+            { label: '🛒 Añadir OPC al Carrito', payload: 'add_opc_direct', type: 'add_to_cart', targetId: 'opc-infrastructure' },
+            { label: '🚀 Agendar Demo', payload: 'schedule_meeting', type: 'schedule' }
+          ];
+        } else if (normalized.includes('sophia') || normalized.includes('hologram') || normalized.includes('inteligencia artificial')) {
+          replyText = 'SophIA Holographics revoluciona la atención interactiva. Desarrollamos avatares y asistentes tridimensionales/holográficos con modelos LLM propietarios entrenados en el conocimiento de tu marca. Resuelven el 95% de dudas con empatía simulada y derivan prospectos de alto valor de inmediato.';
+          replyActions = [
+            { label: '🛒 Añadir SophIA al Carrito', payload: 'add_sophia_direct', type: 'add_to_cart', targetId: 'sophia-holographics' },
+            { label: '🚀 Agendar una Sesión', payload: 'schedule_meeting', type: 'schedule' }
+          ];
+        } else if (normalized.includes('eco') || normalized.includes('reciclaje') || normalized.includes('circular') || normalized.includes('chasqui')) {
+          replyText = 'EcoChasqui IA es nuestra plataforma bandera para sustentabilidad industrial. Sincroniza hardware de escaneo óptico mediante visión artificial con un software que clasifica materiales reciclables, cuantifica bonos de CO2, y asocia a tu empresa a la red de beneficios fiscales verdes.';
+          replyActions = [
+            { label: '🛒 Añadir EcoChasqui', payload: 'add_eco_direct', type: 'add_to_cart', targetId: 'ecochasqui-ia' },
+            { label: '🚀 Agendar Consultoría', payload: 'schedule_meeting', type: 'schedule' }
+          ];
+        } else if (normalized.includes('mobility') || normalized.includes('flota') || normalized.includes('vehículo') || normalized.includes('seguridad')) {
+          replyText = 'Guerra Mobility salva vidas mediante computadoras predictivas de abordo. Nuestras cámaras internas evalúan patrones de fatiga, somnolencia, desatención ocular o rastro de embriaguez del conductor, alertando de inmediato a la central corporativa. Si el riesgo es crítico, la IA toma control parcial del vehículo de manera autónoma para orillarse de forma segura.';
+          replyActions = [
+            { label: '🛒 Añadir Guerra Mobility', payload: 'add_mobility_direct', type: 'add_to_cart', targetId: 'guerra-mobility' },
+            { label: '🚀 Agendar Demo', payload: 'schedule_meeting', type: 'schedule' }
+          ];
+        } else if (normalized.includes('capital') || normalized.includes('inversión') || normalized.includes('excedentes')) {
+          replyText = 'Guerra Capital Markets optimiza la tesorería corporativa. Analizamos tus saldos pasivos y los posicionamos estratégicamente en instrumentos bursátiles internacionales de alta liquidez y rendimiento mediante algoritmos predictivos cuantitativos alineados con objetivos de sostenibilidad (ESG).';
+          replyActions = [
+            { label: '🛒 Añadir Guerra Capital', payload: 'add_capital_direct', type: 'add_to_cart', targetId: 'guerra-capital' },
+            { label: '🚀 Agendar Consultoría', payload: 'schedule_meeting', type: 'schedule' }
+          ];
+        } else {
+          replyText = `Comprendo tu interés en transformar el ecosistema con tecnología segura. He registrado tu inquietud sobre: "${userText}". Nuestro equipo comercial y de I+D profundizará en esto en tu consultoría personalizada. ¿Te gustaría agendar una reunión virtual Meet gratuita para estructurar tu blueprint tecnológico hoy?`;
+          replyActions = [
+            { label: '🚀 Agendar Reunión Virtual', payload: 'schedule_meeting', type: 'schedule' },
+            { label: '📞 Hablar con un Humano', payload: 'direct_whatsapp', type: 'general' }
+          ];
+        }
+
+        const botMsg: ChatMessage = {
+          id: `bot-${Date.now()}`,
+          text: replyText,
+          sender: 'bot',
+          timestamp: 'Ahora',
+          actions: replyActions
+        };
+
+        setMessages(prev => [...prev, botMsg]);
+      }, 1000);
+    } finally {
       setIsTyping(false);
-    }, 1200);
+    }
   };
 
   const handleSendSubmit = (e: React.FormEvent) => {
